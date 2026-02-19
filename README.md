@@ -14,25 +14,7 @@ Python HTTP-сервер, проксируемый через Nginx. Всё за
 
 ## Архитектура
 
-```
-                    ┌─────────────────────────┐
-                    │         Client          │
-                    └────────────┬────────────┘
-                                 │ HTTP :80
-                                 ▼
-                    ┌─────────────────────────┐
-                    │          Nginx          │
-                    │      (порт 80, хост)    │
-                    └────────────┬────────────┘
-                                 │ proxy_pass :8080
-                                 │ (внутри Docker-сети)
-                                 ▼
-                    ┌─────────────────────────┐
-                    │         Backend         │
-                    │  Python http.server     │
-                    │  (порт 8080, internal)  │
-                    └─────────────────────────┘
-```
+![Architecture](Architecture/architecture.svg)
 
 Nginx принимает запросы снаружи и проксирует их на backend по имени сервиса внутри изолированной Docker-сети `effective_net`. Порт backend на хост не пробрасывается.
 
@@ -103,6 +85,8 @@ curl http://localhost:8080
 ## Структура проекта
 
 ```
+├── Architecture/
+│   └── architecture.svg
 ├── backend/
 │   ├── Dockerfile
 │   └── app.py
