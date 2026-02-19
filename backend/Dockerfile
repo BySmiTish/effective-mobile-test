@@ -7,12 +7,9 @@ WORKDIR /app
 
 RUN useradd -m appuser
 
-COPY app.py /app/app.py
-
-RUN chown -R appuser:appuser /app
+COPY --chown=appuser:appuser app.py /app/app.py
 
 USER appuser
 
 EXPOSE 8080
-
 CMD ["python", "app.py"]
